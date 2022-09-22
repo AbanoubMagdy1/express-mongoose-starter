@@ -5,11 +5,10 @@ const configDB = async () => {
 		const conn = await mongoose.connect(process.env.MONGO_URL, {
 			useNewUrlParser: true,
 			useUnifiedTopology: true,
-			useCreateIndex: true,
 		});
-		console.log(`MONGODB Connected : ${conn.connection.host}`.green.bold);
-	} catch (e) {
-		console.error(`ERROR occured : ${e.message}`.red.underline);
+		console.log(`MONGODB Connected : ${conn.connection.host}`);
+	} catch (err) {
+		console.error(`ERROR occured : ${err.message}`);
 		process.exit(1);
 	}
 };
