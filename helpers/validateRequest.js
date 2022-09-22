@@ -16,10 +16,15 @@ function validateRequest (
 		req[objectName] = value;
 	});
 
+	//Needs to use structured clone when updating node version.
 	return {
+		/*
 		body: structuredClone(req.body),
 		params: structuredClone(req.params),
-		query: structuredClone(req.query)
+		query: structuredClone(req.query)*/		
+		body: req.body,
+		params: req.params,
+		query: req.query
 	};
 }
 
