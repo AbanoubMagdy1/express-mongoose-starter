@@ -1,4 +1,5 @@
+import HttpErrors from 'http-errors'
+
 export default function notFound(req, res) {
-	console.log(req.body, req.query);
-	res.status(404).send("Page Not Found");
+	throw new HttpErrors.NotFound(`This route (${req.originalUrl}) does not exist`)
 }

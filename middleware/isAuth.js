@@ -1,8 +1,8 @@
 import jwt from "jsonwebtoken";
 import User from "../models/User.js";
-import asyncHandler from "express-async-handler";
+import HttpErrors from "http-errors";
 
-export const isAuth = asyncHandler(async (req, res, next) => {
+export default async function isAuth (req, res, next) {
 	if (
 		req.headers.authorization &&
         req.headers.authorization.startsWith("Bearer")
@@ -12,13 +12,11 @@ export const isAuth = asyncHandler(async (req, res, next) => {
 		req.user = await User.findById(id).select("-password");
 
 		if (!req.user) {
-			res.status(404);
-			throw new Error("User not found");
+			throw new HttpErrors.Unauthorized("Not authorized, no user");
 		}
 
 		next();
 	} else {
-		res.status("401");
-		throw new Error("Token is invalid or there is no token");
+		throw new HttpErrors.Unauthorized("Not authorized, no token");
 	}
-});
+};

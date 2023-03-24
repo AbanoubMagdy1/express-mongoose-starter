@@ -5,6 +5,7 @@ import User from "../../models/User.js";
 import asyncHandler from "express-async-handler";
 import generateToken from "../../helpers/generateToken.js";
 import validateRequest from "../../helpers/validateRequest.js";
+import HttpErrors from "http-errors";
 
 const validationSchema = {
 	body: Joi.object().required().keys({
@@ -17,7 +18,7 @@ const validationSchema = {
 //api    POST api/users/login
 //access Public
 
-const login = asyncHandler(async (req, res) => {
+const login = async (req, res) => {
 	const { body } = validateRequest(req, validationSchema);
 	const { email, password } = body;
 	const user = await User.findOne({ email });
@@ -30,9 +31,8 @@ const login = asyncHandler(async (req, res) => {
 			token: generateToken({ id: user._id, secret: process.env.JWT_SECRET }),
 		});
 	} else {
-		res.status(401);
-		throw new Error("Email or password is invalid");
+		throw new HttpErrors.Unauthorized("Email or password is invalid");
 	}
-});
+};
 
 export default login;

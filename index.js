@@ -3,7 +3,10 @@ dotenv.config();
 import express from "express";
 import morgan from "morgan";
 import configDB from "./configDB.js";
+
 import notFound from "./middleware/notFound.js";
+import errorHandler from "./middleware/errorHandler.js";
+
 import userRoutes from "./routes/userRoutes.js";
 
 const PORT = process.env.PORT || 5000;
@@ -19,7 +22,8 @@ if (process.env.NODE_ENV === "development") {
 
 app.use("/api/users", userRoutes);
 
-app.use(notFound);
+app.all("*" ,notFound);
+app.use(errorHandler);
 
 app.listen(
 	PORT,
