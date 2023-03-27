@@ -18,7 +18,7 @@ const validationSchema = {
 //api    POST api/users/login
 //access Public
 
-const login = async (req, res) => {
+const login = asyncHandler(async (req, res) => {
 	const { body } = validateRequest(req, validationSchema);
 	const { email, password } = body;
 	const user = await User.findOne({ email });
@@ -33,6 +33,6 @@ const login = async (req, res) => {
 	} else {
 		throw new HttpErrors.Unauthorized("Email or password is invalid");
 	}
-};
+});
 
 export default login;

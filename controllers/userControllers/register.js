@@ -19,7 +19,7 @@ const validationSchema = {
 //api    POST api/users/register
 //access Public
 
-const register = async (req, res) => {
+const register = asyncHandler( async (req, res) => {
 	const { body } = validateRequest(req, validationSchema);
 	const { email, password, name } = body;
 	const user = await User.findOne({ email });
@@ -42,6 +42,6 @@ const register = async (req, res) => {
 		});
 		
 	}
-};
+});
 
 export default register;

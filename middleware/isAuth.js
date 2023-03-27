@@ -1,8 +1,9 @@
 import jwt from "jsonwebtoken";
 import User from "../models/User.js";
 import HttpErrors from "http-errors";
+import asyncHandler from "express-async-handler";
 
-export default async function isAuth (req, res, next) {
+export default asyncHandler (async function isAuth (req, res, next) {
 	if (
 		req.headers.authorization &&
         req.headers.authorization.startsWith("Bearer")
@@ -19,4 +20,4 @@ export default async function isAuth (req, res, next) {
 	} else {
 		throw new HttpErrors.Unauthorized("Not authorized, no token");
 	}
-};
+});
