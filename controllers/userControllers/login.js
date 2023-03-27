@@ -28,7 +28,7 @@ const login = asyncHandler(async (req, res) => {
 			email: user.email,
 			name: user.name,
 			isAdmin: user.isAdmin,
-			token: generateToken({ id: user._id, secret: process.env.JWT_SECRET }),
+			token: generateToken({ _id: user._id, roles: user.roles, secret: process.env.JWT_SECRET }),
 		});
 	} else {
 		throw new HttpErrors.Unauthorized("Email or password is invalid");

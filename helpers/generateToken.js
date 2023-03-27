@@ -1,5 +1,7 @@
 import jwt from "jsonwebtoken";
 
-export default function generateToken({id, secret}){
-	return `Bearer ${jwt.sign({id}, secret, {expiresIn: "7d"})}`;
+export default function generateToken({_id, roles,  secret}){
+	const token = jwt.sign({_id, roles}, secret, {expiresIn: "7d"});
+	
+	return `Bearer ${token}`;
 }

@@ -8,7 +8,7 @@ import HttpErrors from "http-errors";
 //access Private
 
 const getProfile = asyncHandler( async (req, res) => {
-  const user = await User.findById(req.userId).select("-password");
+  const user = await User.findById(req.user._id).select("-password");
 
   if (!user) {
 	throw new HttpErrors.Unauthorized("Not authorized, no user");
