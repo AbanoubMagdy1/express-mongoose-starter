@@ -10,9 +10,9 @@ export default asyncHandler (async function isAuth (req, res, next) {
 	) {
 		const token = req.headers.authorization.split(" ")[1];
 		const { id } = jwt.verify(token, process.env.JWT_SECRET);
-		req.user = await User.findById(id).select("-password");
+		req.userId = id;
 
-		if (!req.user) {
+		if (!req.userId) {
 			throw new HttpErrors.Unauthorized("Not authorized, no user");
 		}
 
