@@ -1,5 +1,5 @@
 import asyncHandler from "express-async-handler";
-import User from "../../models/User";
+import User from "../../models/User.js";
 import HttpErrors from "http-errors";
 
 

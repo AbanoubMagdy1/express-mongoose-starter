@@ -27,7 +27,7 @@ const login = asyncHandler(async (req, res) => {
 			_id: user._id,
 			email: user.email,
 			name: user.name,
-			isAdmin: user.isAdmin,
+			roles: user.roles,
 			token: generateToken({ _id: user._id, roles: user.roles, secret: process.env.JWT_SECRET }),
 		});
 	} else {

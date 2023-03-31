@@ -1,6 +1,7 @@
 import jwt from "jsonwebtoken";
 import HttpErrors from "http-errors";
 import asyncHandler from "express-async-handler";
+import acl from "../helpers/acl.js";
 
 export default asyncHandler (async function isAuth (req, res, next) {
 	if (
@@ -13,6 +14,12 @@ export default asyncHandler (async function isAuth (req, res, next) {
 
 		if (!payload) {
 			throw new HttpErrors.Unauthorized("Not authorized, no user");
+		}
+		
+		const isRoleAllowed = await acl.areAnyRolesAllowed(payload.roles || ['guest'], req.originalUrl, req.method.toLowerCase());
+		
+		if(!isRoleAllowed){
+			throw new HttpErrors.Unauthorized("Not authorized to access this resource");
 		}
 
 		next();

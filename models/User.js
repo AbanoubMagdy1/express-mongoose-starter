@@ -1,6 +1,11 @@
 import mongoose from "mongoose";
 import bcrypt from "bcryptjs";
 
+export const USERROLES = {
+	admin: "admin",
+	user: "user",
+}
+
 const userSchema = mongoose.Schema(
 	{
 		name: {
@@ -19,6 +24,10 @@ const userSchema = mongoose.Schema(
 		roles: {
 			type: [String],
 			default: ["user"],
+			validator: (roles) => {
+				const validRoles = Object.values(userRoles);
+				return roles.every((role) => validRoles.includes(role));
+			}
 		},
 		token: String,
 		expDate: Date,
@@ -40,8 +49,6 @@ userSchema.pre("save", async function (next) {
 		this.password = await bcrypt.hash(this.password, salt);
 	}
 });
-
-userSchema.index({ email: 1 }, { unique: true });
 
 const User = mongoose.model("User", userSchema);
 

@@ -16,6 +16,7 @@
     "nodemon": "^2.0.20"
   },
   "dependencies": {
+    "acl": "^0.4.11",
     "bcryptjs": "^2.4.3",
     "dotenv": "^16.0.2",
     "express": "^4.18.1",
