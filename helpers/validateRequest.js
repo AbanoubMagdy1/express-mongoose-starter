@@ -1,8 +1,8 @@
 import Joi from "joi";
 import createHttpError from "http-errors";
 
-const anySchema = Joi.any();
-
+const anySchema = Joi.any();       
+  
 function validateRequest (
 	req,
 	{ body = anySchema, query = anySchema, params = anySchema } = {},
@@ -13,9 +13,9 @@ function validateRequest (
 		if (error) {
 			throw createHttpError(400, error.message, { warn });
 		}
-		req[objectName] = value;
-	});
-
+		 req[objectName] = value;
+	});    
+         
 	//Needs to use structured clone when updating node version.
 	return {
 		/*
@@ -27,5 +27,5 @@ function validateRequest (
 		query: req.query
 	};
 }
-
+        
 export default validateRequest;

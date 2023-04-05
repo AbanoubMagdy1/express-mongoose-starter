@@ -15,9 +15,9 @@ export default asyncHandler (async function isAuth (req, res, next) {
 		if (!payload) {
 			throw new HttpErrors.Unauthorized("Not authorized, no user");
 		}
-		
-		const isRoleAllowed = await acl.areAnyRolesAllowed(payload.roles || ['guest'], req.originalUrl, req.method.toLowerCase());
-		
+
+		const isRoleAllowed = await acl.areAnyRolesAllowed(payload.roles || ["guest"], req.originalUrl, req.method.toLowerCase());
+
 		if(!isRoleAllowed){
 			throw new HttpErrors.Unauthorized("Not authorized to access this resource");
 		}

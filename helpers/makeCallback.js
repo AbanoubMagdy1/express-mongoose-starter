@@ -7,8 +7,6 @@ function makeCallback(providedFunction) {
 		}
 	};
 }
-
-
-
+   
 export default makeCallback;
 

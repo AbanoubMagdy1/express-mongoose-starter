@@ -4,7 +4,7 @@ import bcrypt from "bcryptjs";
 export const USERROLES = {
 	admin: "admin",
 	user: "user",
-}
+};
 
 const userSchema = mongoose.Schema(
 	{
@@ -25,7 +25,7 @@ const userSchema = mongoose.Schema(
 			type: [String],
 			default: ["user"],
 			validator: (roles) => {
-				const validRoles = Object.values(userRoles);
+				const validRoles = Object.values(USERROLES);
 				return roles.every((role) => validRoles.includes(role));
 			}
 		},

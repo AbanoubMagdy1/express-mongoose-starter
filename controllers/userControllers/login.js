@@ -17,7 +17,7 @@ const validationSchema = {
 //desc   Login of user
 //api    POST api/users/login
 //access Public
-
+   
 const login = asyncHandler(async (req, res) => {
 	const { body } = validateRequest(req, validationSchema);
 	const { email, password } = body;
@@ -29,7 +29,7 @@ const login = asyncHandler(async (req, res) => {
 			name: user.name,
 			roles: user.roles,
 			token: generateToken({ _id: user._id, roles: user.roles, secret: process.env.JWT_SECRET }),
-		});
+		});    
 	} else {
 		throw new HttpErrors.Unauthorized("Email or password is invalid");
 	}
