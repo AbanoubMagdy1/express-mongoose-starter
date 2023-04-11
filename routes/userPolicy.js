@@ -8,4 +8,4 @@ acl.allow([
 			{ resources: "/api/users/profile", permissions: "get" },
 		]
 	},
-]);                    
+]);
