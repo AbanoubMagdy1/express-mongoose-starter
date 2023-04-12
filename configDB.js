@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import paginationPlugin from "./helpers/paginationPlugin";
 
 const configDB = async () => {
 	try {
@@ -6,6 +7,7 @@ const configDB = async () => {
 			useNewUrlParser: true,
 			useUnifiedTopology: true,
 		});
+		mongoose.plugin(paginationPlugin);
 		console.log(`MONGODB Connected : ${conn.connection.host}`);
 	} catch (err) {
 		console.error(`ERROR occured : ${err.message}`);

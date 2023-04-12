@@ -63,18 +63,17 @@ export function getAll (Model){
 		if (req.filterObj) {
 			filter = req.filterObj;
 		}
-		const {page = 1, documentPerPage = 10, sort = "createdAt"} = req.query;
+		const {page = 1, documentsPerPage = 10, sort = "createdAt"} = req.query;
 		// Build query
 
 		const [count , documents] = await Promise.all([
 			Model.countDocuments(filter),
 			Model.find(filter)
 				.sort(sort)
-				.skip((page - 1) * documentPerPage)
-				.limit(documentPerPage)
+				.paginate({ documentsPerPage, page })
 		]);
 
-		const pages = Math.ceil(count / documentPerPage);
+		const pages = Math.ceil(count / documentsPerPage);
 		res
 			.status(200)
 			.json({
