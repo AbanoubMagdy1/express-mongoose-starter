@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import paginationPlugin from "./helpers/paginationPlugin";
+import paginationPlugin from "./helpers/paginationPlugin.js";
 
 const configDB = async () => {
 	try {
